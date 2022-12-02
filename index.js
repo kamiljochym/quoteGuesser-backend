@@ -6,20 +6,22 @@ const app = express()
 app.use(cors())
 
 app.get('/', (req, res) => {
-    res.send("backend loll baby")
+  res.send('backend loll baby')
 })
 
 app.get('/quote', (req, res) => {
-    axios
-        .get('http://www.famous-quotes.uk/api.php?id=random&minpop=80')
-        .then(response => {
-            res.json(response.data)
-        })
-
+  axios
+    .get('https://api.api-ninjas.com/v1/quotes', {
+      headers: {
+        'X-Api-Key': process.env.QUOTES_API,
+      },
+    })
+    .then((response) => {
+      res.json(response.data)
+    })
 })
-
 
 const PORT = 3001
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`)
 })
